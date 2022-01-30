@@ -1,0 +1,178 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+interface Param {
+  id: ID!
+  name: String!
+  "Base64 encoded JSON object"
+  value: String!
+}
+
+type Category {
+  alias: String!
+  contents(filter: ContentFilter, limit: Int! = 10, offset: Int! = 0, paramFilter: [ParamFilter!], sort: SortByParam, tagID: ID): [Content!]
+  id: ID!
+  localizations(lang: [Language!]!): [I18nCategory!]
+  name: String!
+  params(name: String!): [MetaContentParam!]!
+  priority: Int!
+  tags: [Tag!]
+  totalContent: Int!
+  totalContents(filter: ContentFilter, paramFilter: [ParamFilter!], sort: SortByParam, tagID: ID): Int!
+  type: String!
+}
+
+type Content {
+  category: Category!
+  description: String
+  id: ID!
+  like: Like!
+  link: String!
+  localizations(lang: [Language!]!): [I18nContent!]
+  metaContentParams: [MetaContentParam!]
+  name: String!
+  previews: [Preview!]
+  priority: Int!
+  protected: Boolean!
+  tags: [Tag!]
+  type: String!
+  view: View!
+}
+
+type I18nCategory {
+  id: ID!
+  lang: String!
+  name: String!
+}
+
+type I18nContent {
+  description: String
+  id: ID!
+  lang: String!
+  link: String!
+  name: String!
+}
+
+type I18nMetaContentParam {
+  id: ID!
+  lang: String!
+  value: String!
+}
+
+type I18nTag {
+  displayName: String!
+  id: ID!
+  lang: String!
+}
+
+type Like {
+  id: ID!
+  isLiked: Boolean!
+  total: Int!
+}
+
+type MetaContentParam implements Param {
+  id: ID!
+  localizations(lang: [Language!]!): [I18nMetaContentParam!]
+  name: String!
+  value: String!
+}
+
+type Mutation {
+  deactivateSubs: Boolean
+  like(id: ID!): Like!
+  view(id: ID!): View!
+}
+
+type Point {
+  flowURL: String
+  id: ID!
+  service: Service!
+  sid: String!
+  sskey: String!
+  tariff: Int!
+  verify: Boolean
+}
+
+type Preview {
+  id: ID!
+  link: String!
+  priority: Int!
+  type: String!
+}
+
+type Query {
+  point: Point
+}
+
+type Service {
+  alias: String!
+  categories: [Category!]
+  category(id: ID!): Category
+  content(id: ID!): Content
+  contents(filter: ContentFilter, limit: Int! = 10, offset: Int! = 0, paramFilter: [ParamFilter!], sort: SortByParam): [Content!]
+  id: ID!
+  name: String!
+  params(name: String!): [MetaContentParam!]!
+  search(fields: [SearchField!]! = [name, description], lang: [Language!]! = [base], limit: Int! = 10, offset: Int! = 0, query: String!): [Content!]
+  tag(id: ID!): Tag
+  tags: [Tag!]
+  totalContent: Int!
+}
+
+type Tag {
+  contents(categoryID: ID, filter: ContentFilter, limit: Int! = 10, offset: Int! = 0, paramFilter: [ParamFilter!]): [Content!]
+  displayName: String!
+  id: ID!
+  localizations(lang: [Language!]!): [I18nTag!]
+  name: String!
+  priority: Int!
+  totalContent: Int!
+  totalContents(categoryID: ID, filter: ContentFilter, paramFilter: [ParamFilter!]): Int!
+}
+
+type View {
+  id: ID!
+  isViewed: Boolean!
+  total: Int!
+}
+
+enum Language {
+  am
+  base
+  by
+  en
+  kz
+  ru
+  ua
+  uz
+}
+
+enum Order {
+  asc
+  desc
+  rand
+}
+
+enum SearchField {
+  description
+  name
+}
+
+input ContentFilter {
+  typeName: String
+}
+
+input ParamFilter {
+  paramName: String!
+  value: [String!]
+}
+
+input SortByParam {
+  order: Order!
+  paramName: String
+}

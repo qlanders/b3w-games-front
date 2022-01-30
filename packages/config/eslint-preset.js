@@ -1,5 +1,14 @@
 module.exports = {
-  extends: ["next", "prettier"],
+  extends: [
+    "airbnb",
+    "airbnb-typescript",
+    "prettier"
+  ],
+  "plugins": [
+    "jest",
+    "babel",
+    "@typescript-eslint"
+  ],
   settings: {
     next: {
       rootDir: ["apps/*/", "packages/*/"],

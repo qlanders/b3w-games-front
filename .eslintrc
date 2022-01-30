@@ -1,0 +1,23 @@
+{
+    "extends": [
+        "airbnb",
+        "airbnb-typescript"
+    ],
+    "plugins": [
+        "jest",
+        "babel",
+        "@typescript-eslint"
+    ],
+    "env": {
+        "browser": true,
+        "jest/globals": true
+    },
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
+    "parser": "@typescript-eslint/parser",
+  "ignorePatterns": [
+    "**/generated",
+    "**/setupProxy.js"
+  ]
+}

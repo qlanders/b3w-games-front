@@ -1,0 +1,142 @@
+query Service {
+  point {
+    id
+    flowURL
+    sid
+    sskey
+    verify
+    service {
+      id
+      name
+      categories {
+        ...Category
+      }
+    }
+  }
+}
+
+query TagsByCategory($id: ID!) {
+  point {
+    id
+    service {
+      id
+      category(id: $id) {
+        id
+        tags {
+          ...Tag
+        }
+      }
+    }
+  }
+}
+
+query Contents($limit: Int! = 18, $offset: Int! = 0, $paramFilter: [ParamFilter!]) {
+  point {
+    id
+    service {
+      id
+      contents(limit: $limit, offset: $offset, paramFilter: $paramFilter) {
+        ...Content
+      }
+    }
+  }
+}
+
+query ContentsByCategory($categoryId: ID!, $offset: Int! = 0, $limit: Int! = 10) {
+  point {
+    id
+    service {
+      id
+      category(id: $categoryId) {
+        id
+        contents(offset: $offset, limit: $limit) {
+          ...Content
+        }
+        totalContent
+      }
+    }
+  }
+}
+
+query ContentsByTag($id: ID!, $categoryId: ID, $limit: Int! = 10, $offset: Int! = 0) {
+  point {
+    id
+    service {
+      id
+      tag(id: $id) {
+        id
+        contents(limit: $limit, offset: $offset, categoryID: $categoryId) {
+          ...Content
+        }
+        totalContents(categoryID: $categoryId)
+      }
+    }
+  }
+}
+
+query ContentById($id: ID!) {
+  point {
+    id
+    service {
+      id
+      content(id: $id) {
+        ...ContentDetail
+      }
+    }
+  }
+}
+
+fragment Category on Category {
+  id
+  name
+  tags {
+    id
+    displayName
+    name
+  }
+}
+
+fragment Content on Content {
+  id
+  name
+  link
+  previews {
+    ...Preview
+  }
+  tags {
+    ...Tag
+  }
+  category {
+    id
+  }
+}
+
+fragment ContentDetail on Content {
+  id
+  name
+  link
+  previews {
+    ...Preview
+  }
+  metaContentParams {
+    id
+    name
+    value
+  }
+  tags {
+    ...Tag
+  }
+}
+
+fragment Tag on Tag {
+  id
+  name
+  displayName
+}
+
+fragment Preview on Preview {
+  id
+  link
+  priority
+  type
+}

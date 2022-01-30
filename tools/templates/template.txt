@@ -1,0 +1,27 @@
+import React from 'react';
+import styled from 'styled-components';
+import breakpoints from 'helpers/breakpoints';
+
+const Wrapper = styled.div`
+
+`;
+
+export interface I#{blockname.dashCase} {
+  className?: string;
+}
+
+const #{blockname.dashCase} = ({
+  className,
+}: I#{blockname.dashCase}) => {
+  return (
+    <Wrapper className={className}>
+      #{blockname.dashCase}
+    </Wrapper>
+  );
+};
+
+#{blockname.dashCase}.defaultProps = {
+  className: '',
+};
+
+export default #{blockname.dashCase};
